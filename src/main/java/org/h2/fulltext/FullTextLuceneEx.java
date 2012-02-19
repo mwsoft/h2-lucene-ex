@@ -94,6 +94,7 @@ public class FullTextLuceneEx extends FullText {
 				return constructor.newInstance(LUCENE_VERSION);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return new StandardAnalyzer(LUCENE_VERSION);
 	}
@@ -501,6 +502,7 @@ public class FullTextLuceneEx extends FullText {
 			// also allows subclasses to control the analyzer used.
 			Analyzer analyzer = access.writer.getAnalyzer();
 			QueryParser parser = new QueryParser(LUCENE_VERSION, LUCENE_FIELD_DATA, analyzer);
+			parser.setAutoGeneratePhraseQueries(true);
 			Query query = parser.parse(text);
 			// Lucene 3 insists on a hard limit and will not provide
 			// a total hits value. Take at least 100 which is
